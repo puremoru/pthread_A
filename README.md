@@ -1,2 +1,2 @@
 # pthread_A
-# pthread_B
+# pthread_B（brunch）
