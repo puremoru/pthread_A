@@ -10,6 +10,7 @@
 
 /*プロトタイプ宣言*/
 void traverse_dir(char* dirname, char* srchstr, int* filenum);
+void traverse_file(char* filename, char* srchstr);
 
 typedef struct _result{
   int num;
@@ -92,12 +93,34 @@ void traverse_dir(char* dirname, char* srchstr, int* filenum){
 
           if(strcmp(dent->d_name,srchstr)==0){
                 printf("find:%s\n",path);
-                return;
+                traverse_file(path,srchstr);
               }
 
         }
     }
   }
   closedir(dd);
+  return;
+}
+
+
+void traverse_file(char* filename, char* srchstr){
+  char buf[1024];
+  char* s;
+  int sumn = 0;
+  unsigned int t;
+
+  /*ファイルハンドルの取得*/
+  FILE* fd;
+  if ((fd = fopen(filename, "r"))==NULL){
+    printf("file %s not found.\n",filename);
+    return;
+  }
+
+  /*文字列の読み込み*/
+while (fgets(buf, 1024,fd) !=NULL){
+    printf("%s",buf);
+  }
+  fclose(fd);
   return;
 }
